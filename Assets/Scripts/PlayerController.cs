@@ -31,19 +31,20 @@ public class PlayerController : MonoBehaviour
         //horizontal movement
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * horizontalInput);
+
+        //Jump if you are on the ground
+        if (Input.GetButtonDown("Thrusters") && isOnGround)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     private void FixedUpdate()
     {
         //JetPack
-        if(Input.GetButton("Thrusters"))
+        if(Input.GetButton("Thrusters") && !isOnGround)
         {
-            //Jump if you are on the ground
-            if (isOnGround)
-            {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            }
-            else  //Otherwise, float with jetpack
+       
             {
                 rb.AddForce(Vector3.up * thrustForce);
             }
