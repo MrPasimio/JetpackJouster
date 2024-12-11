@@ -405,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   thrustForce: 12
-  jumpForce: 8
+  jumpForce: 3
 --- !u!1001 &1892169567
 PrefabInstance:
   m_ObjectHideFlags: 0
