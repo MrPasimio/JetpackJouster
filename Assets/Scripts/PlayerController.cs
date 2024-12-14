@@ -15,6 +15,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private Animator animator;
+    private GameManager gameManager;
+
+    //limits
+    private float horizontalMin;
+    private float horizontalMax;
+    private float verticalMax;
 
 
     // Start is called before the first frame update
@@ -23,6 +29,12 @@ public class PlayerController : MonoBehaviour
         //Get the components!
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        //establish limits
+        horizontalMin = gameManager.horizontalMin;
+        horizontalMax = gameManager.horizontalMax;
+        verticalMax = gameManager.verticalMax;
     }
 
     // Update is called once per frame
@@ -31,6 +43,17 @@ public class PlayerController : MonoBehaviour
         //horizontal movement
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * horizontalInput);
+
+        //horizontal limits
+        if(transform.position.x > horizontalMax)
+        {
+            transform.position = new Vector3(horizontalMax, transform.position.y, transform.position.z);
+        }
+
+        if (transform.position.x < horizontalMin)
+        {
+            transform.position = new Vector3(horizontalMin, transform.position.y, transform.position.z);
+        }
 
         //Jump if you are on the ground
         if (Input.GetButtonDown("Thrusters") && isOnGround)
@@ -44,7 +67,7 @@ public class PlayerController : MonoBehaviour
         //JetPack
         if(Input.GetButton("Thrusters") && !isOnGround)
         {
-       
+            if(transform.position.y < verticalMax)
             {
                 rb.AddForce(Vector3.up * thrustForce);
             }
