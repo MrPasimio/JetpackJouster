@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public float forwardMin;
     public float forwardMax;
 
+    public float sceneSpeed;
+
+    public bool isGameActive;
+
 
 
     // Start is called before the first frame update
