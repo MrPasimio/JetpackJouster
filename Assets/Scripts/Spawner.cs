@@ -14,6 +14,8 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private int maxSpawns;
 
+    public bool isSpawning;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,11 +53,14 @@ public class Spawner : MonoBehaviour
 
     IEnumerator TimedSpawn()
     {
-        SpawnObstacle(Random.Range(0, maxSpawns));
-        yield return new WaitForSeconds(baseDelay + Random.Range(-delayVariation, delayVariation));
-        if(gameManager.isGameActive)
+        if (isSpawning)
         {
-            StartCoroutine(TimedSpawn());
+            SpawnObstacle(Random.Range(0, maxSpawns));
+            yield return new WaitForSeconds(baseDelay + Random.Range(-delayVariation, delayVariation));
+            if (gameManager.isGameActive)
+            {
+                StartCoroutine(TimedSpawn());
+            }
         }
     }
 

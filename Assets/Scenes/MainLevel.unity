@@ -273,7 +273,8 @@ MonoBehaviour:
   verticalMax: 1.8
   forwardMin: 0
   forwardMax: 42
-  sceneSpeed: 6
+  startingSceneSpeed: 6
+  sceneSpeed: 0
   isGameActive: 1
 --- !u!4 &664123220
 Transform:
@@ -5570,6 +5571,7 @@ MonoBehaviour:
   baseDelay: 1
   delayVariation: 0.2
   maxSpawns: 4
+  isSpawning: 1
 --- !u!1001 &1892169567
 PrefabInstance:
   m_ObjectHideFlags: 0

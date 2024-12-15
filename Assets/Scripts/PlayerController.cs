@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     
     private bool isOnGround = true;
+    private bool isAlive = true;
 
     private Rigidbody rb;
     private Animator animator;
@@ -41,32 +42,37 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //horizontal movement
-        horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * horizontalInput);
-
-        //horizontal limits
-        if(transform.position.x > horizontalMax)
+        if (isAlive)
         {
-            transform.position = new Vector3(horizontalMax, transform.position.y, transform.position.z);
-        }
 
-        if (transform.position.x < horizontalMin)
-        {
-            transform.position = new Vector3(horizontalMin, transform.position.y, transform.position.z);
-        }
+            //horizontal movement
+            horizontalInput = Input.GetAxis("Horizontal");
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * horizontalInput);
 
-        //Jump if you are on the ground
-        if (Input.GetButtonDown("Thrusters") && isOnGround)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            //horizontal limits
+            if (transform.position.x > horizontalMax)
+            {
+                transform.position = new Vector3(horizontalMax, transform.position.y, transform.position.z);
+            }
+
+            if (transform.position.x < horizontalMin)
+            {
+                transform.position = new Vector3(horizontalMin, transform.position.y, transform.position.z);
+            }
+
+            //Jump if you are on the ground
+            if (Input.GetButtonDown("Thrusters") && isOnGround)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+
         }
     }
 
     private void FixedUpdate()
     {
         //JetPack
-        if(Input.GetButton("Thrusters") && !isOnGround)
+        if(Input.GetButton("Thrusters") && !isOnGround && isAlive)
         {
             if(transform.position.y < verticalMax)
             {
@@ -100,5 +106,20 @@ public class PlayerController : MonoBehaviour
             isOnGround = false;
             animator.SetBool("isOnGround", isOnGround);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        isAlive = false;
+        animator.SetBool("isAlive", isAlive);
+        gameManager.StopScene();
     }
 }
