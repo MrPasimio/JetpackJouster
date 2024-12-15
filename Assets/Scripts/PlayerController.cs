@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Animator animator;
     private GameManager gameManager;
+    [SerializeField] private ParticleSystem thrusterFire;
 
     //limits
     private float horizontalMin;
@@ -71,6 +72,14 @@ public class PlayerController : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * thrustForce);
             }
+            if(!thrusterFire.isPlaying)
+            {
+                thrusterFire.Play();
+            }
+        }
+        else
+        {
+            thrusterFire.Stop();
         }
 
     }
