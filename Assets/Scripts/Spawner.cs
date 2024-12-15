@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int maxSpawns;
 
     public bool isSpawning;
+    public float horizontalOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class Spawner : MonoBehaviour
     public Vector3 RandomPosition()
     {
         return new Vector3(
-            Random.Range(horizontalMin, horizontalMax),
+            Random.Range(horizontalMin - horizontalOffset, horizontalMax + horizontalOffset),
             transform.position.y,
             transform.position.z
             );
