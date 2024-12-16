@@ -1019,6 +1019,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: helmet2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ef112c245b80a18408007c35ead92abc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef112c245b80a18408007c35ead92abc, type: 3}
 --- !u!4 &1144412608 stripped

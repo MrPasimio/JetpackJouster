@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -121,5 +122,12 @@ public class PlayerController : MonoBehaviour
         isAlive = false;
         animator.SetBool("isAlive", isAlive);
         gameManager.StopScene();
+        StartCoroutine(UglyRestart());
+    }
+
+    IEnumerator UglyRestart()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
