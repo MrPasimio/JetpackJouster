@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         sceneSpeed = startingSceneSpeed;
+
+        lives = Storage.GetLives();
         UpdateLives();
     }
 
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
 
         if(lives > 0)
         {
+            Storage.SetLives(lives);
             StartCoroutine(UglyRestart());
         }
 
