@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,13 +19,17 @@ public class GameManager : MonoBehaviour
 
     public bool isGameActive;
 
-
+    [Header("Game Variables")]
+    public int startingLives;
+    public int lives;
+    public TextMeshProUGUI livesDisplay;
 
 
     // Start is called before the first frame update
     void Start()
     {
         sceneSpeed = startingSceneSpeed;
+        UpdateLives();
     }
 
     // Update is called once per frame
@@ -49,5 +55,30 @@ public class GameManager : MonoBehaviour
             mover.UpdateSpeed();
         }
         
+    }
+
+    IEnumerator UglyRestart()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void UpdateLives()
+    {
+        livesDisplay.text = $"Lives: {lives}";
+    }
+
+    public void LoseLife()
+    {
+        lives--;
+        UpdateLives();
+
+        StopScene();
+
+        if(lives > 0)
+        {
+            StartCoroutine(UglyRestart());
+        }
+
     }
 }

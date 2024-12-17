@@ -121,13 +121,8 @@ public class PlayerController : MonoBehaviour
     {
         isAlive = false;
         animator.SetBool("isAlive", isAlive);
-        gameManager.StopScene();
-        StartCoroutine(UglyRestart());
+        gameManager.LoseLife();
     }
 
-    IEnumerator UglyRestart()
-    {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+   
 }
